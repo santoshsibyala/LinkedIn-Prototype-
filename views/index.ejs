@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+     <link rel="stylesheet" href="/stylesheets/sweet-alert.css">
+<style type="text/css">
+body{
+margin-top-width:0px;
+}
+h1{
+  font-family:verdana;
+   
+	margin: 7% auto;
+  }
+  input[type=text][type=email][type=password]{
+	background-color: #fbfbfb;
+    border : solid black 1px;
+    width: 40%;
+    -box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    height: 20px;
+    
+}
+.button {
+   border-top: 1px solid #96d1f8;
+   background: #65a9d7;
+   background: -webkit-gradient(linear, left top, left bottom, from(#3e779d), to(#65a9d7));
+   background: -webkit-linear-gradient(top, #3e779d, #65a9d7);
+   background: -moz-linear-gradient(top, #3e779d, #65a9d7);
+   background: -ms-linear-gradient(top, #3e779d, #65a9d7);
+   background: -o-linear-gradient(top, #3e779d, #65a9d7);
+   padding: 5px 10px;
+   -webkit-border-radius: 8px;
+   -moz-border-radius: 8px;
+   border-radius: 8px;
+   -webkit-box-shadow: rgba(0,0,0,1) 0 1px 0;
+   -moz-box-shadow: rgba(0,0,0,1) 0 1px 0;
+   box-shadow: rgba(0,0,0,1) 0 1px 0;
+   
+   color: white;
+   font-size: 16px;
+   font-family: Georgia, serif;
+   text-decoration: none;
+  
+   width: 40%;
+   
+   }
+.button:hover {
+   border-top-color: #28597a;
+   background: #28597a;
+   color: #ccc;
+   }
+.button:active {
+   border-top-color: #1b435e;
+   background: #1b435e;
+   }
+</style>
+     <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+	<script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+	 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+	
+	    	<script src="/js/sweet-alert.js"></script>
+	    	<script>
+	    	
+	    	function linkedinController($scope,$http,$location) {
+	    	    
+	    		$scope.signIn = function() {
+	    	    	$http({
+	    	            method: 'POST',
+	    	            url: '/signin',
+	    	            data: { "username": $scope.inputUsername, "password": $scope.inputPassword }
+	    	            
+	    	         }).success(function(response){
+	    	           
+	    	            alert(JSON.stringify(response));
+	    	            
+	    	            if(response.status == "success")
+	    	           		window.location = '/successLogin';
+	    	            else
+	    	            	alert("Oops!", response.msg, "error");
+	    	        }).error(function(error){
+	    	        	alert("Oops!", error, "error");
+	    	        });
+	    	    };
+
+	    	    $scope.signUp = function() {
+	    	    	
+	    	    	$http({
+	    	            method: 'POST',
+	    	            url: '/signup',
+	    	            data: { "email": $scope.inputEmailAddress, "password": $scope.inputPassword1 , "firstname": $scope.inputFirstName, "lastname": $scope.inputLastName,"location":$scope.location}
+	    	            
+	    	         }).success(function(response){
+	    	           
+	    	            alert(JSON.stringify(response));
+	    	            
+	    	            if(response.status == "success")
+	    	            	{
+	    	            	//alert(document.getElementById("singupform"));
+	    	            	document.getElementById("singupform").reset();
+	    	           		alert('succesfully registered please login',"success");
+	    	            
+	    	            	}
+	    	            else{
+	    	            	alert("Oops!",response.msg,"error");
+	    	            }
+	    	        }).error(function(error){
+	    	        	alert("Oops!",error,"error");
+	    	        });
+	    	    };
+	    	}
+
+	    	
+	    	</script>
+  		
+ </head>
+  <body ng-app="" ng-controller="linkedinController" >
+    <div class="container-fluid"  style="margin-top: -50px;margin-left: -50px;margin-right: -50px;">
+  <div class="row" style="background-color:lavender;">
+  <div class="col-md-6" >
+  <p></p>
+  <img src="/Photos/logo.png" >
+   </div>
+  <div class="col-md-6">
+  <form >
+  <label id="lemail">Email Address</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <label id="lpassword">Password</label>&nbsp;&nbsp;
+  <a href="" class="forgot-pwd" tabindex="4">Forgot your password?</a>
+   </div>
+   <div class="row" style="background-color:lavender;">
+  <div class="col-md-6" >
+  
+   </div>
+  <div class="col-md-6">
+  <input type="email" id="email" ng-model="inputUsername" placeholder="Email" required>&nbsp;&nbsp;
+  <input type="password" id="password"  ng-model="inputPassword" placeholder="Password" required >&nbsp;&nbsp;
+   <input type="submit" class="btn btn-primary btn-xs" ng-click="signIn()"></button>
+   </div>
+  </div>
+  </div>
+  </form>
+  <div class="container-fluid" >
+ <!--  
+  		<div class="col-md-6" ng-show="x > 2"><img src="/Photos/pictures4.png"><img src="/Photos/pictures4.png"></div>
+  		<div class="col-md-6" ><p ng-show="x > 2">Please enter correct email address and password</div>
+  		
+ -->
+  		<div class="col-md-10">
+  			<h1>Join the World's largest professional network </h1>		
+  		</div>
+  	</div>
+  <div class="container-fluid">
+  <div class="row">
+  	<div class="col-md-6">
+  	<img src="/Photos/santosh_large.jpg">
+  	<img src="/Photos/santosh_large.jpg">
+  	<img src="/Photos/santosh_large.jpg">
+  	</div>
+  	<div class="col-md-6">
+  	<p><h2>Get Started- it's free</h2></p>
+  	<p>Registration takes less than 2 minutes</p>
+  	<form>
+  	<p><input type="text" id="fname" ng-model="inputFirstName" placeholder="First Name" required>&nbsp;&nbsp;&nbsp;&nbsp;
+  		<input type="text" id="lname" ng-model="inputLastName" placeholder="Last Name" required>
+  	<p><input type="email" id="email" ng-model="inputEmailAddress" placeholder="Email Address" required>
+  	</p>
+  	</div>
+  	</div>
+   <div class="row">
+  	<div class="col-md-6">
+  	<img src="/Photos/santosh_large.jpg">
+  	<img src="/Photos/santosh_large.jpg">
+  	<img src="/Photos/santosh_large.jpg">
+  	</div>
+  	<div class="col-md-6">
+  	<p><input type="password" id="password" ng-model="inputPassword1" placeholder="Password " required></p>
+  	  	<p><input type="text" id="loc" ng-model="location" placeholder="Location " required></p>
+  	<p>By clicking Join Now, you agree to Linkedin's User Agreement,</p>
+  	<p>Privacy Policy and Cookie Policy.
+  	<p><button type="button" class="button" ng-click="signUp()"  >Join Now</button></p></form>
+  	</div>
+  </div>
+  	</div>
+  </div>
+  </body>
+  </html>
